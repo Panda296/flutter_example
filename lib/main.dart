@@ -1,66 +1,74 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: Colors.orange,
+        // 下面这两条属性设置取消 Material 的水波纹效果
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      title: "example",
+      home: _homeWidget(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
+class _homeWidget extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => _homeWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _homeWidgetState extends State {
+  int currentIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+  StatefulWidget get widget => super.widget;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("example"),
+        ),
+        body: _home_body(),
+        bottomNavigationBar: BottomNavigationBar(
+          // unselectedFontSize: 14 , //默认字体大小为14 选中后变大,这里设置了大小一致,就不再有变大效果
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              // print('onTap  $currentIndex   $index');
+              currentIndex = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "首页",
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: "分类",
             ),
           ],
+          // selectedItemColor: Colors.orange,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
-  }
+      );
+}
+
+class _home_body extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _home_bodyState();
+}
+
+class _home_bodyState extends State {
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Container(
+          child: Text("Body"),
+        ),
+      );
 }
