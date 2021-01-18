@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_example/components/bottom_item.dart';
+import 'package:flutter_example/views/group/Group.dart';
+import 'package:flutter_example/views/home//Home.dart';
+import 'package:flutter_example/views/mall/Mall.dart';
+import 'package:flutter_example/views/profile/Profile.dart';
+import 'package:flutter_example/views/subject/Subject.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,14 +45,14 @@ class _homeWidgetState extends State {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("example"),
+        body: IndexedStack(
+          index: currentIndex,
+          children: [Home(), Subject(), Group(), Mall(), Profile()],
         ),
-        body: _home_body(),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 2,
-          type: BottomNavigationBarType.fixed,
-          // 这里跟Android中相似,过多的Item默认会不显示lable
+          type:
+              BottomNavigationBarType.fixed, // 这里跟Android中相似,过多的Item默认会不显示lable
           // unselectedFontSize: 14 , //默认字体大小为14 选中后变大,这里设置了大小一致,就不再有变大效果
           currentIndex: currentIndex,
           onTap: (index) {
@@ -68,17 +73,17 @@ class _homeWidgetState extends State {
         ),
       );
 }
-
-class _home_body extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _home_bodyState();
-}
-
-class _home_bodyState extends State {
-  @override
-  Widget build(BuildContext context) => Center(
-        child: Container(
-          child: Text("Body"),
-        ),
-      );
-}
+//
+// class _home_body extends StatefulWidget {
+//   @override
+//   State<StatefulWidget> createState() => _home_bodyState();
+// }
+//
+// class _home_bodyState extends State {
+//   @override
+//   Widget build(BuildContext context) => Center(
+//         child: Container(
+//           child: Text("Body"),
+//         ),
+//       );
+// }
