@@ -41,9 +41,6 @@ class _homeWidgetState extends State {
   };
 
   @override
-  StatefulWidget get widget => super.widget;
-
-  @override
   Widget build(BuildContext context) => Scaffold(
         body: IndexedStack(
           index: currentIndex,
@@ -51,8 +48,8 @@ class _homeWidgetState extends State {
         ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 2,
-          type:
-              BottomNavigationBarType.fixed, // 这里跟Android中相似,过多的Item默认会不显示lable
+          type: BottomNavigationBarType.fixed,
+          // 这里跟Android中相似,过多的Item默认会不显示lable
           // unselectedFontSize: 14 , //默认字体大小为14 选中后变大,这里设置了大小一致,就不再有变大效果
           currentIndex: currentIndex,
           onTap: (index) {
