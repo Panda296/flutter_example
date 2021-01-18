@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_example/components/bottom_item.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.orange,
+        accentColor: Colors.orangeAccent,
         // 下面这两条属性设置取消 Material 的水波纹效果
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
@@ -24,7 +26,14 @@ class _homeWidget extends StatefulWidget {
 }
 
 class _homeWidgetState extends State {
-  int currentIndex = 0;
+  int currentIndex = 0; // 当前选中的 index
+  Map<String, String> bottoms = {
+    "首页": "images/home.png",
+    "影音": "images/book.png",
+    "圈子": "images/group.png",
+    "市场": "images/store.png",
+    "我的": "images/person.png",
+  };
 
   @override
   StatefulWidget get widget => super.widget;
@@ -36,23 +45,24 @@ class _homeWidgetState extends State {
         ),
         body: _home_body(),
         bottomNavigationBar: BottomNavigationBar(
+          elevation: 2,
+          type: BottomNavigationBarType.fixed,
+          // 这里跟Android中相似,过多的Item默认会不显示lable
           // unselectedFontSize: 14 , //默认字体大小为14 选中后变大,这里设置了大小一致,就不再有变大效果
           currentIndex: currentIndex,
           onTap: (index) {
+            // 这里控制点击生效
             setState(() {
               // print('onTap  $currentIndex   $index');
               currentIndex = index;
             });
           },
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "首页",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: "分类",
-            ),
+            bottombar_item("home", "首页"),
+            bottombar_item("book", "影音"),
+            bottombar_item("group", "圈子"),
+            bottombar_item("store", "市场"),
+            bottombar_item("person", "我的"),
           ],
           // selectedItemColor: Colors.orange,
         ),
